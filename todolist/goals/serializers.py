@@ -2,8 +2,8 @@ from django.db import transaction
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import GoalCategory, Goal, GoalComment, Board, BoardParticipant
-from core.models import User
-from core.serializers import UserSerializer
+from .core.models import User
+from .core.serializers import UserSerializer
 
 USER_MODEL = get_user_model()
 
