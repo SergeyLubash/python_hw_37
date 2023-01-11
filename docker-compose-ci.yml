@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   frontend:
-    image: sermalenk/skypro-front:lesson-37
+    image: sermalenk/skypro-front:lesson-38
     restart: always
     depends_on:
       - api
@@ -41,6 +41,19 @@ services:
          condition: service_healthy
      command: >
        sh -c "python3 manage.py migrate"
+  bot:
+    image: lubasergei/diplom_hw34_slubash:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    restart: always
+    environment:
+      TG_BOT_API_TOKEN: ${TG_BOT_API_TOKEN}
+    command: >
+      sh -c "python3 manage.py runbot"
+    depends_on:
+      db:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+
   db:
     image: postgres:latest
     environment:
